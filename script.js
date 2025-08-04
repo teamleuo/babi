@@ -23,8 +23,18 @@ const messages = [
 
 // Atualizar contador
 function updateCounter() {
-  const startDate = new Date('2025-03-16T19:00:00');
+  // Verificar se é dia 16 (mesmo se já tiver verificado no load)
   const today = new Date();
+  if (today.getDate() === 4) {
+    const startDate = new Date('2025-03-16T19:00:00');
+    const monthsDiff = (today.getFullYear() - startDate.getFullYear()) * 12 + 
+                      (today.getMonth() - startDate.getMonth());
+    if (monthsDiff >= 1) {
+      showBalloons(monthsDiff);
+    }
+  }
+
+  const startDate = new Date('2025-03-16T19:00:00');
   
   if (today < startDate) {
     const diffTime = startDate - today;
@@ -93,6 +103,100 @@ function updateCounter() {
   }
   
   document.getElementById('counter').textContent = message;
+}
+
+// Balões para celebrar meses completos
+function checkMonthAnniversary() {
+  const today = new Date();
+  const startDate = new Date('2025-03-16T19:00:00');
+  
+  // Verificar se é dia 16
+  if (today.getDate() === 16) {
+    // Verificar se já passou pelo menos 1 mês
+    const monthsDiff = (today.getFullYear() - startDate.getFullYear()) * 12 + 
+                      (today.getMonth() - startDate.getMonth());
+    
+    if (monthsDiff >= 1) {
+      showBalloons(monthsDiff);
+    }
+  }
+}
+
+function showBalloons(months) {
+  const container = document.getElementById('balloonsContainer');
+  const balloonColors = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🎈', '🎉', '🎊'];
+  const messages = [
+    "Mais um mês de nós!",
+    `${months} meses de felicidade!`,
+    "Celebrando nosso amor!",
+    "Mais um mês juntos!",
+    "Nosso amor cresce a cada dia!",
+    "Parabéns pra gente!",
+    "Mais um capítulo da nossa história!"
+  ];
+  
+  container.style.display = 'block';
+  
+  // Criar balões
+  for (let i = 0; i < 30; i++) {
+    setTimeout(() => {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.innerHTML = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+      
+      // Posição aleatória
+      balloon.style.left = `${Math.random() * 100}vw`;
+      
+      // Tamanho aleatório
+      const size = Math.random() * 20 + 30;
+      balloon.style.fontSize = `${size}px`;
+      
+      // Duração aleatória
+      const duration = Math.random() * 10 + 10;
+      balloon.style.animationDuration = `${duration}s`;
+      
+      container.appendChild(balloon);
+      
+      // Remover após animação
+      setTimeout(() => {
+        balloon.remove();
+      }, duration * 1000);
+    }, i * 300);
+  }
+  
+  // Mostrar mensagem especial
+  const message = document.createElement('div');
+  message.className = 'balloon-message';
+  message.textContent = messages[Math.floor(Math.random() * messages.length)];
+  message.style.position = 'fixed';
+  message.style.top = '50%';
+  message.style.left = '50%';
+  message.style.transform = 'translate(-50%, -50%)';
+  message.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+  message.style.padding = '20px';
+  message.style.borderRadius = '15px';
+  message.style.fontSize = '1.5rem';
+  message.style.color = 'var(--primary-color)';
+  message.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+  message.style.zIndex = '1001';
+  message.style.textAlign = 'center';
+  message.style.fontWeight = 'bold';
+  
+  container.appendChild(message);
+  
+  // Remover mensagem após alguns segundos
+  setTimeout(() => {
+    message.style.transition = 'opacity 1s';
+    message.style.opacity = '0';
+    setTimeout(() => {
+      message.remove();
+    }, 1000);
+  }, 5000);
+  
+  // Esconder container após todos os balões desaparecerem
+  setTimeout(() => {
+    container.style.display = 'none';
+  }, 35000);
 }
 
 // Mostrar resultado
@@ -442,6 +546,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setInterval(updateCounter, 1000);
   createFloatingHearts();
   setInterval(createFloatingHearts, 20000);
+  checkMonthAnniversary(); // Verificar se é dia 16
   
   // Controle de música pelo botão no canto
   document.getElementById('musicToggle').addEventListener('click', function() {
