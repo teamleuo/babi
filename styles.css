@@ -1,4 +1,5 @@
 :root {
+  
   --primary-color: #e91e63;
   --secondary-color: #ff4081;
   --light-accent: #fce4ec;
@@ -22,6 +23,35 @@ body {
   -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
 }
+
+.welcome-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, #ffe4ec, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOut 3s ease 3s forwards;
+}
+
+.welcome-text {
+  font-size: 1.6rem;
+  color: #c2185b;
+  text-align: center;
+  padding: 2rem;
+  font-weight: 600;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
 
 .container {
   max-width: 100%;
@@ -554,4 +584,5 @@ h2 {
   .carousel-container {
     width: 95%;
   }
+
 }
