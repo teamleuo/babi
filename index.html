@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Leo & Babi</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💑</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="floating-hearts" id="floatingHearts"></div>
+  
+  <div class="container">
+    <button class="music-toggle" id="musicToggle"></button>
+    <h1>Leo <span class="heart">❤️</span> Babi</h1>
+    <h2>Enrolando desde 16/03/2025... e contando!</h2>
+
+    <div class="counter" id="counter">Calculando...</div>
+
+    <div class="carousel-container">
+      <div class="carousel" id="carousel">
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/sfOxp3V.jpeg" alt="1ª noite em casa" onerror="handleImageError(this)">
+                </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/m1O5N7s.jpeg" alt="Festa junina" onerror="handleImageError(this)">
+         
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/jZRYBKY.jpeg" alt="Academia" onerror="handleImageError(this)">
+         
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/6erdEul.jpeg" alt="Academia" onerror="handleImageError(this)">
+         
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/DFP0yvF.jpeg" alt="Oishi Ramen" onerror="handleImageError(this)">
+         
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/vsjwyyN.jpeg" alt="Patinação no gelo" onerror="handleImageError(this)">
+         
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/DquvPl6.jpeg" alt="Aleatório" onerror="handleImageError(this)">
+
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/9bFEcgl.jpeg" alt="Academia" onerror="handleImageError(this)">
+        
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/fKCmqZm.jpeg" alt="Academia" onerror="handleImageError(this)">
+          
+        </div>
+      </div>
+      <button class="carousel-arrow prev">❮</button>
+      <button class="carousel-arrow next">❯</button>
+      <div class="carousel-nav" id="carousel-nav"></div>
+    </div>
+
+    <p class="intro-text">Oi amo, criei este cantinho digital pra celebrar nossa jornada. Nem tudo precisa de rótulo quando tem significado.</p>
+
+    <div class="options">
+      <div class="option" onclick="showResult(1)">
+        <h3>Romântica Moderada</h3>
+        <p>"Você é o tipo de pessoa que eu postaria nos stories sem pensar duas vezes"</p>
+      </div>
+      <div class="option" onclick="showResult(2)">
+        <h3>Sincera sem Drama</h3>
+        <p>"Gosto de você, mas vamos manter a calma, ok?"</p>
+      </div>
+      <div class="option" onclick="showResult(3)">
+        <h3>Zoeira Controlada</h3>
+        <p>"Se isso der certo, a gente conta pros nossos netos (ou deleta do histórico)"</p>
+      </div>
+      <div class="option" onclick="showResult(4)">
+        <h3>Reflexão Leve</h3>
+        <p>"Nossa conexão é tipo Wi-Fi: quando funciona, é ótimo!"</p>
+      </div>
+    </div>
+
+    <button class="btnSurpreenda" onclick="randomMessage()">
+      <span class="button-text">Me surpreenda</span>
+      <span class="button-heart">❤️</span>
+    </button>
+
+    <div id="result" class="result"></div>
+
+    <button class="forbidden-button" id="forbiddenButton">NÃO CLIQUE AQUI</button>
+
+    <div class="footer">
+      <p>Este espaço é nosso - sem pressões, só verdade e afeto</p>
+      <p>© 2025 - Leo & Babi</p>
+    </div>
+  </div>
+
+  <div class="matrix-mode" id="matrixMode"></div>
+  <div id="youtubePlayer" style="display: none;"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

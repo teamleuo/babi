@@ -1,0 +1,557 @@
+:root {
+  --primary-color: #e91e63;
+  --secondary-color: #ff4081;
+  --light-accent: #fce4ec;
+  --dark-accent: #c2185b;
+  --text-color: #333;
+  --shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+  --blue-heart: #1e88e5;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #fff5f5 0%, #f8f8ff 100%);
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 0;
+  backdrop-filter: blur(5px);
+  transition: opacity 0.5s;
+  animation: float 6s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 500px;
+    border-radius: 20px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+  }
+}
+
+h1 {
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2 {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  margin-top: 0;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.heart {
+  animation: pulse 1.5s infinite ease-in-out;
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.heart:hover {
+  transform: scale(1.2);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.counter {
+  background: var(--light-accent);
+  padding: 1.2rem;
+  border-radius: 16px;
+  margin: 1.8rem auto;
+  font-size: 1.1rem;
+  font-weight: 600;
+  max-width: 300px;
+  box-shadow: var(--shadow);
+  color: var(--dark-accent);
+}
+
+/* Carrossel melhorado */
+.carousel-container {
+  position: relative;
+  max-width: 100%;
+  width: 85%;
+  margin: 2rem auto;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(233, 30, 99, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.carousel-container:hover {
+  box-shadow: 0 12px 35px rgba(233, 30, 99, 0.4);
+  transform: translateY(-2px);
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 15px;
+  height: 400px;
+  position: relative;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item:hover img {
+  transform: scale(1.05);
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: white;
+  padding: 1.5rem 1rem 0.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-item:hover .carousel-caption {
+  opacity: 1;
+}
+
+.carousel-nav {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 2;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.carousel-dot.active {
+  background: var(--primary-color);
+  transform: scale(1.2);
+  box-shadow: 0 0 5px rgba(233, 30, 99, 0.8);
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--primary-color);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  opacity: 0;
+}
+
+.carousel-container:hover .carousel-arrow {
+  opacity: 1;
+}
+
+.carousel-arrow:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow.prev {
+  left: 15px;
+}
+
+.carousel-arrow.next {
+  right: 15px;
+}
+
+/* Novo elemento romântico - Polaroid effect */
+.polaroid {
+  background: white;
+  padding: 15px 15px 40px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transform: rotate(-2deg);
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.polaroid:after {
+  content: '';
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  width: 80%;
+  height: 1px;
+  background: #eee;
+  transform: translateX(-50%);
+}
+
+.intro-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin: 2rem 0;
+  padding: 0 1rem;
+  color: var(--text-color);
+  position: relative;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.2rem;
+  margin: 2.5rem 0;
+}
+
+.option {
+  background: var(--light-accent);
+  padding: 1.5rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: var(--shadow);
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.option:hover {
+  background: #f8bbd0;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.result {
+  display: none;
+  background: var(--light-accent);
+  border-radius: 16px;
+  margin: 2rem auto;
+  padding: 1.8rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 90%;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botão Me Surpreenda */
+.btnSurpreenda {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 1rem auto;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  font-weight: 500;
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btnSurpreenda:hover {
+  background: linear-gradient(135deg, var(--dark-accent), #ad1457);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btnSurpreenda .button-heart {
+  transition: transform 0.3s;
+}
+
+.btnSurpreenda:hover .button-heart {
+  transform: scale(1.3);
+}
+
+.forbidden-button {
+  background: linear-gradient(135deg, #ff0000, #cc0000);
+  color: white;
+  border: 3px dashed yellow;
+  padding: 1.2rem 2.5rem;
+  border-radius: 35px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  cursor: pointer;
+  margin: 1.5rem auto 2rem;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 255, 0, 0.4) inset;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+  transition: all 0.4s;
+  display: block;
+  width: 100%;
+  max-width: 280px;
+}
+
+.forbidden-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 255, 0, 0.6) inset;
+}
+
+/* Efeito Matrix com corações azuis */
+.matrix-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  overflow: hidden;
+}
+
+.matrix-heart {
+  position: absolute;
+  color: #1e88e5;
+  font-size: 24px;
+  opacity: 0.8;
+  text-shadow: 0 0 10px #1e88e5;
+  animation: matrix-fall linear forwards;
+  user-select: none;
+}
+
+@keyframes matrix-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(calc(100vh + 100px)) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.footer {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: #777;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.blue-heart {
+  position: fixed;
+  pointer-events: none;
+  font-size: 24px;
+  animation: heart-fall linear forwards;
+  z-index: 10001;
+  opacity: 0.9;
+  text-shadow: 0 0 10px rgba(30, 136, 229, 0.8);
+  color: #1e88e5;
+}
+
+@keyframes heart-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg) scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(100vh + 100px)) rotate(360deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+#youtubePlayer {
+  display: none;
+}
+
+/* Botão de música no canto superior direito */
+.music-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: var(--shadow);
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+
+.music-toggle:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.music-toggle.playing::after {
+  content: "❚❚";
+}
+
+.music-toggle:not(.playing)::after {
+  content: "▶";
+}
+
+/* Novo efeito romântico - floating hearts */
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.floating-heart {
+  position: absolute;
+  color: var(--primary-color);
+  font-size: 20px;
+  animation: floating-heart linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes floating-heart {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .options {
+    grid-template-columns: 1fr;
+  }
+  .option {
+    padding: 1.2rem;
+  }
+  .carousel {
+    height: 300px;
+  }
+  .carousel-item {
+    min-height: 300px;
+  }
+  .forbidden-button {
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+  }
+  .music-toggle {
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+  }
+  .carousel-container {
+    width: 95%;
+  }
+}
