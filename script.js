@@ -25,7 +25,7 @@ const messages = [
 function updateCounter() {
   // Verificar se é dia 16 (mesmo se já tiver verificado no load)
   const today = new Date();
-  if (today.getDate() === 4) {
+  if (today.getDate() === 16) {
     const startDate = new Date('2025-03-16T19:00:00');
     const monthsDiff = (today.getFullYear() - startDate.getFullYear()) * 12 + 
                       (today.getMonth() - startDate.getMonth());
@@ -606,3 +606,4 @@ document.addEventListener('touchstart', function() {}, {passive: true});
 function handleImageError(img) {
   img.style.display = 'none';
 }
+
