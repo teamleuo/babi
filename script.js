@@ -369,7 +369,7 @@ function onYouTubeIframeAPIReady() {
   player = new YT.Player('youtubePlayer', {
     height: '0',
     width: '0',
-    videoId: 'OWou2vYY-3g', // ID para MÚSICA!
+    videoId: 'c9WKyH63uuw', // ID para MÚSICA!
     playerVars: {
       'autoplay': 0,
       'controls': 0,
@@ -390,7 +390,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
   console.log("Player pronto");
   
-  player.seekTo(56);
+  player.seekTo(1);
   updateMusicButton();
 }
 
@@ -606,4 +606,5 @@ document.addEventListener('touchstart', function() {}, {passive: true});
 function handleImageError(img) {
   img.style.display = 'none';
 }
+
 
