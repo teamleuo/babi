@@ -10,113 +10,116 @@
 </head>
 <body>
   
-<div class="welcome-overlay">
-  <div class="welcome-text">Feito com carinho, espero que goste ♥</div>
+<!-- Tela inicial -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="initial-screen">
+    <h1>Vai me dar muito carinho hoje?</h1>
+    <div class="initial-buttons">
+      <button id="yesInitialBtn" class="initial-btn yes-btn">Claro, com certeza</button>
+      <button id="noInitialBtn" class="initial-btn no-btn">Não</button>
+    </div>
+    
+    <div class="result-card" id="resultCard">
+      <h2>Resultados do Carinho</h2>
+      <ul class="stats">
+        <li>Felicidade: <span class="value">+204%</span></li>
+        <li>Tesão: <span class="value">+Infinito</span></li>
+        <li>Chance de término: <span class="value">-500%</span></li>
+      </ul>
+      <button id="continueBtn" class="continue-btn">Continuar</button>
+    </div>
+  </div>
 </div>
 
-  <div class="floating-hearts" id="floatingHearts"></div>
+<div class="floating-hearts" id="floatingHearts"></div>
   
-  <div class="container">
-    <button class="music-toggle" id="musicToggle"></button>
-    <h1>Leo <span class="heart">❤️</span> Babi</h1>
-    <h2>Enrolando desde 16/03/2025... e contando!</h2>
+<div class="container" id="mainContainer" style="display: none;">
+  <button class="music-toggle" id="musicToggle"></button>
+  <h1>Leo <span class="heart">❤️</span> Babi</h1>
+  <h2>Enrolando desde 16/03/2025... e contando!</h2>
 
-    <div class="counter" id="counter">Calculando...</div>
+  <div class="counter" id="counter">Calculando...</div>
 
-    <div class="carousel-container">
-      <div class="carousel" id="carousel">
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/sfOxp3V.jpeg" alt="1ª noite em casa" onerror="handleImageError(this)">
-                </div>
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/m1O5N7s.jpeg" alt="Festa junina" onerror="handleImageError(this)">
-         
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/jZRYBKY.jpeg" alt="Academia" onerror="handleImageError(this)">
-         
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/6erdEul.jpeg" alt="Academia" onerror="handleImageError(this)">
-         
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/DFP0yvF.jpeg" alt="Oishi Ramen" onerror="handleImageError(this)">
-         
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/vsjwyyN.jpeg" alt="Patinação no gelo" onerror="handleImageError(this)">
-         
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/DquvPl6.jpeg" alt="Aleatório" onerror="handleImageError(this)">
-
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/9bFEcgl.jpeg" alt="Academia" onerror="handleImageError(this)">
-        
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/fKCmqZm.jpeg" alt="Academia" onerror="handleImageError(this)">          
-        </div>
-        <div class="carousel-item">
-          <img src="https://i.imgur.com/uTT8zjE.gif" alt="Academia" onerror="handleImageError(this)">          
-        </div>
+  <div class="carousel-container">
+    <div class="carousel" id="carousel">
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/sfOxp3V.jpeg" alt="1ª noite em casa" onerror="handleImageError(this)">
       </div>
-      <button class="carousel-arrow prev">❮</button>
-      <button class="carousel-arrow next">❯</button>
-      <div class="carousel-nav" id="carousel-nav"></div>
-    </div>
-
-    <p class="intro-text">Oi amo, criei este cantinho digital pra celebrar nossa jornada. Nem tudo precisa de rótulo quando tem significado.</p>
-
-    <div class="options">
-      <div class="option" onclick="showResult(1)">
-        <h3>Romântica Moderada</h3>
-        <p>"Você é o tipo de pessoa que eu postaria nos stories sem pensar duas vezes"</p>
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/m1O5N7s.jpeg" alt="Festa junina" onerror="handleImageError(this)">
       </div>
-      <div class="option" onclick="showResult(2)">
-        <h3>Sincera sem Drama</h3>
-        <p>"Gosto de você, mas vamos manter a calma, ok?"</p>
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/jZRYBKY.jpeg" alt="Academia" onerror="handleImageError(this)">
       </div>
-      <div class="option" onclick="showResult(3)">
-        <h3>Zoeira Controlada</h3>
-        <p>"Se isso der certo, a gente conta pros nossos netos (ou deleta do histórico)"</p>
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/6erdEul.jpeg" alt="Academia" onerror="handleImageError(this)">
       </div>
-      <div class="option" onclick="showResult(4)">
-        <h3>Reflexão Leve</h3>
-        <p>"Nossa conexão é tipo Wi-Fi: quando funciona, é ótimo!"</p>
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/DFP0yvF.jpeg" alt="Oishi Ramen" onerror="handleImageError(this)">
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/vsjwyyN.jpeg" alt="Patinação no gelo" onerror="handleImageError(this)">
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/DquvPl6.jpeg" alt="Aleatório" onerror="handleImageError(this)">
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/9bFEcgl.jpeg" alt="Academia" onerror="handleImageError(this)">
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/fKCmqZm.jpeg" alt="Academia" onerror="handleImageError(this)">          
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.imgur.com/uTT8zjE.gif" alt="Academia" onerror="handleImageError(this)">          
       </div>
     </div>
+    <button class="carousel-arrow prev">❮</button>
+    <button class="carousel-arrow next">❯</button>
+    <div class="carousel-nav" id="carousel-nav"></div>
+  </div>
 
-    <button class="btnSurpreenda" onclick="randomMessage()">
-      <span class="button-text">Me surpreenda</span>
-      <span class="button-heart">❤️</span>
-    </button>
+  <p class="intro-text">Oi amo, criei este cantinho digital pra celebrar nossa jornada. Nem tudo precisa de rótulo quando tem significado.</p>
 
-    <div id="result" class="result"></div>
-
-    <button class="forbidden-button" id="forbiddenButton">NÃO CLIQUE AQUI</button>
-
-    <div class="footer">
-      <p>Este espaço é nosso - sem pressões, só verdade e afeto</p>
-      <p>© 2025 - Leo & Babi</p>
+  <div class="options">
+    <div class="option" onclick="showResult(1)">
+      <h3>Romântica Moderada</h3>
+      <p>"Você é o tipo de pessoa que eu postaria nos stories sem pensar duas vezes"</p>
+    </div>
+    <div class="option" onclick="showResult(2)">
+      <h3>Sincera sem Drama</h3>
+      <p>"Gosto de você, mas vamos manter a calma, ok?"</p>
+    </div>
+    <div class="option" onclick="showResult(3)">
+      <h3>Zoeira Controlada</h3>
+      <p>"Se isso der certo, a gente conta pros nossos netos (ou deleta do histórico)"</p>
+    </div>
+    <div class="option" onclick="showResult(4)">
+      <h3>Reflexão Leve</h3>
+      <p>"Nossa conexão é tipo Wi-Fi: quando funciona, é ótimo!"</p>
     </div>
   </div>
 
-  <div class="matrix-mode" id="matrixMode"></div>
-  <div id="youtubePlayer" style="display: none;"></div>
+  <button class="btnSurpreenda" onclick="randomMessage()">
+    <span class="button-text">Me surpreenda</span>
+    <span class="button-heart">❤️</span>
+  </button>
+
+  <div id="result" class="result"></div>
+
+  <button class="forbidden-button" id="forbiddenButton">NÃO CLIQUE AQUI</button>
+
+  <div class="footer">
+    <p>Este espaço é nosso - sem pressões, só verdade e afeto</p>
+    <p>© 2025 - Leo & Babi</p>
+  </div>
+</div>
+
+<div class="matrix-mode" id="matrixMode"></div>
+
+<div id="youtubePlayer" style="display: none;"></div>
 
 <div class="balloons-container" id="balloonsContainer"></div>
   
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
-
 </html>
-
-
-
-
-
-
-
