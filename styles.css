@@ -43,8 +43,8 @@ body {
   width: 90%;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   position: relative;
+  min-height: 300px; /* Adicionado */
 }
-
 .initial-screen h1 {
   color: #ff6b6b;
   margin-bottom: 30px;
@@ -72,6 +72,7 @@ body {
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   position: relative;
+  z-index: 10; /* Adicionado */
 }
 
 .initial-btn.yes-btn {
@@ -88,7 +89,11 @@ body {
   background-color: #ff6b6b;
   color: white;
   transition: none;
+  position: absolute; /* Alterado para absolute */
+  top: 0;
+  left: 0;
 }
+
 
 .result-card {
   background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
@@ -712,3 +717,4 @@ h2 {
     width: 95%;
   }
 }
+
