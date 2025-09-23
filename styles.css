@@ -96,7 +96,7 @@ body {
 
 
 .result-card {
-  background: linear-gradient(135deg, #160000 0%, #160000 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 100%);
   border-radius: 15px;
   padding: 30px;
   margin-top: 30px;
@@ -717,5 +717,6 @@ h2 {
     width: 95%;
   }
 }
+
 
 
