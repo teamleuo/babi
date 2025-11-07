@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiência Imersiva com YouTube</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .title {
+            position: absolute;
+            top: 10%;
+            text-align: center;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            animation: fadeIn 2s forwards 1s;
+        }
+
+        .title h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .title p {
+            font-size: 1.2rem;
+            color: #ddd;
+        }
+
+        .image-container {
+            position: relative;
+            width: 80vmin;
+            height: 80vmin;
+            z-index: 1;
+            perspective: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rotating-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 50px rgba(255, 126, 95, 0.7),
+                0 0 100px rgba(255, 126, 95, 0.5),
+                inset 0 0 50px rgba(0, 0, 0, 0.5);
+            animation: 
+                zoomIn 4s ease-out forwards,
+                rotate 20s linear infinite 4s,
+                glow 3s ease-in-out infinite alternate 4s;
+            opacity: 0;
+            transform: scale(0.1) rotate(0deg);
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.1) rotate(0deg);
+            }
+            70% {
+                opacity: 1;
+                transform: scale(1.1) rotate(180deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 
+                    0 0 50px rgba(255, 126, 95, 0.7),
+                    0 0 100px rgba(255, 126, 95, 0.5),
+                    inset 0 0 50px rgba(0, 0, 0, 0.5);
+            }
+            to {
+                box-shadow: 
+                    0 0 70px rgba(255, 126, 95, 0.9),
+                    0 0 140px rgba(255, 126, 95, 0.7),
+                    inset 0 0 60px rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 5%;
+            display: flex;
+            gap: 20px;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s forwards 2s;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,126,95,0.4) 0%, rgba(255,126,95,0) 70%);
+            animation: pulse 3s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 0.3; }
+            100% { transform: scale(0.8); opacity: 0.7; }
+        }
+
+        .audio-wave {
+            position: absolute;
+            bottom: 15%;
+            width: 300px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            opacity: 0;
+            animation: fadeIn 1s forwards 3s;
+        }
+
+        .bar {
+            width: 8px;
+            height: 10px;
+            background: linear-gradient(to top, #ff7e5f, #feb47b);
+            border-radius: 10px;
+            animation: audioWave 1.5s ease infinite;
+        }
+
+        .bar:nth-child(2) { animation-delay: 0.1s; }
+        .bar:nth-child(3) { animation-delay: 0.2s; }
+        .bar:nth-child(4) { animation-delay: 0.3s; }
+        .bar:nth-child(5) { animation-delay: 0.4s; }
+        .bar:nth-child(6) { animation-delay: 0.5s; }
+        .bar:nth-child(7) { animation-delay: 0.6s; }
+        .bar:nth-child(8) { animation-delay: 0.7s; }
+        .bar:nth-child(9) { animation-delay: 0.8s; }
+        .bar:nth-child(10) { animation-delay: 0.9s; }
+
+        @keyframes audioWave {
+            0%, 100% { height: 10px; }
+            50% { height: 80px; }
+        }
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: opacity 1s ease;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #ddd;
+        }
+
+        .spinner {
+            width: 70px;
+            height: 70px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #ff7e5f;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .audio-notice {
+            position: absolute;
+            top: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: pulse-notice 2s infinite;
+            z-index: 100;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        @keyframes pulse-notice {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .youtube-player {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .title h1 {
+                font-size: 2rem;
+            }
+            
+            .title p {
+                font-size: 1rem;
+            }
+            
+            .image-container {
+                width: 90vmin;
+                height: 90vmin;
+            }
+            
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div class="loading-text">Carregando experiência...</div>
+    </div>
+
+    <div class="container">
+        <div class="stars" id="stars"></div>
+        
+        <div class="title">
+        </div>
+        
+        <div class="image-container">
+            <div class="pulse"></div>
+            <img src="https://i.imgur.com/HU0DJZS.jpeg" alt="Imagem animada" class="rotating-image" id="rotatingImage">
+        </div>
+        
+        <div class="audio-wave">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        
+        <div class="controls">
+            <button id="restartBtn">Reiniciar Experiência</button>
+            <button id="muteBtn">Silenciar Áudio</button>
+        </div>
+
+        <!-- Player do YouTube (invisível) -->
+        <div id="youtube-player" class="youtube-player"></div>
+    </div>
+
+    <!-- API do YouTube -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // Elementos DOM
+        const rotatingImage = document.getElementById('rotatingImage');
+        const restartBtn = document.getElementById('restartBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const loadingScreen = document.getElementById('loading');
+        const starsContainer = document.getElementById('stars');
+        
+        // Variáveis do YouTube
+        let youtubePlayer;
+        const youtubeVideoId = 'UpLsi12xCLg';
+        
+        // Criar estrelas de fundo
+        function createStars() {
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Inicializar player do YouTube
+        function onYouTubeIframeAPIReady() {
+            youtubePlayer = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: youtubeVideoId,
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'enablejsapi': 1,
+                    'fs': 0,
+                    'iv_load_policy': 3,
+                    'loop': 1,
+                    'modestbranding': 1,
+                    'playsinline': 1,
+                    'rel': 0,
+                    'showinfo': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        }
+        
+        function onPlayerReady(event) {
+            console.log('Player do YouTube pronto');
+            // O áudio será iniciado após o carregamento da página
+        }
+        
+        function onPlayerStateChange(event) {
+            // Estados do player: -1 (não iniciado), 0 (terminado), 1 (reproduzindo), 2 (pausado), 3 (buffering)
+            console.log('Estado do player:', event.data);
+            
+            if (event.data === YT.PlayerState.PLAYING) {
+                updateAudioWave(true);
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                updateAudioWave(false);
+            }
+        }
+        
+        function onPlayerError(event) {
+            console.error('Erro no player do YouTube:', event.data);
+            showAudioError('Erro ao carregar áudio do YouTube');
+        }
+        
+        function updateAudioWave(playing) {
+            const bars = document.querySelectorAll('.bar');
+            if (playing) {
+                bars.forEach(bar => bar.style.animationPlayState = 'running');
+            } else {
+                bars.forEach(bar => bar.style.animationPlayState = 'paused');
+            }
+        }
+        
+        function showAudioError(message) {
+            const notice = document.createElement('div');
+            notice.className = 'audio-notice';
+            notice.innerHTML = `${message}<br><small>Tente clicar na página para iniciar</small>`;
+            document.body.appendChild(notice);
+            
+            setTimeout(() => {
+                notice.remove();
+            }, 5000);
+        }
+        
+        // Event listeners
+        window.addEventListener('load', () => {
+            // Aguardar a API do YouTube carregar
+            const checkYouTube = setInterval(() => {
+                if (window.YT && youtubePlayer) {
+                    clearInterval(checkYouTube);
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                            startYouTubeAudio();
+                        }, 1000);
+                    }, 2000);
+                }
+            }, 100);
+        });
+        
+        function startYouTubeAudio() {
+            if (youtubePlayer && youtubePlayer.playVideo) {
+                // Tentar reproduzir (pode ser bloqueado por autoplay policies)
+                youtubePlayer.playVideo();
+                
+                // Verificar se começou a tocar
+                setTimeout(() => {
+                    if (youtubePlayer.getPlayerState() !== YT.PlayerState.PLAYING) {
+                        showAudioError('Clique em qualquer lugar para iniciar a música');
+                    }
+                }, 2000);
+            }
+        }
+        
+        // Permitir que o usuário inicie o áudio clicando em qualquer lugar
+        document.body.addEventListener('click', () => {
+            if (youtubePlayer && youtubePlayer.playVideo) {
+                if (youtubePlayer.getPlayerState() !== YT.PlayerState.PLAYING) {
+                    youtubePlayer.playVideo();
+                }
+            }
+        });
+        
+        restartBtn.addEventListener('click', () => {
+            // Reiniciar a animação
+            rotatingImage.style.animation = 'none';
+            void rotatingImage.offsetWidth;
+            rotatingImage.style.animation = 
+                'zoomIn 4s ease-out forwards, rotate 20s linear infinite 4s, glow 3s ease-in-out infinite alternate 4s';
+            
+            // Reiniciar áudio do YouTube
+            if (youtubePlayer && youtubePlayer.seekTo) {
+                youtubePlayer.seekTo(0);
+                youtubePlayer.playVideo();
+            }
+        });
+        
+        let isMuted = false;
+        muteBtn.addEventListener('click', () => {
+            if (youtubePlayer) {
+                isMuted = !isMuted;
+                if (isMuted) {
+                    youtubePlayer.mute();
+                    muteBtn.textContent = 'Ativar Áudio';
+                } else {
+                    youtubePlayer.unMute();
+                    muteBtn.textContent = 'Silenciar Áudio';
+                }
+            }
+        });
+        
+        // Inicializar estrelas
+        createStars();
+        
+        // Tratamento de erro na imagem
+        rotatingImage.onerror = function() {
+            console.error('Erro ao carregar a imagem');
+            rotatingImage.alt = 'Erro ao carregar a imagem';
+            rotatingImage.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><rect width="400" height="400" fill="%23302b63"/><text x="200" y="200" font-family="Arial" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">Imagem não carregada</text></svg>';
+        };
+    </script>
+</body>
+</html>
