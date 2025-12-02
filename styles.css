@@ -719,4 +719,371 @@ h2 {
 }
 
 
+/* ===== NOVOS ESTILOS FOFOS ===== */
+
+/* Caixinha de recados */
+.special-features {
+  background: linear-gradient(135deg, #fff0f7 0%, #f0f8ff 100%);
+  border-radius: 20px;
+  padding: 25px;
+  margin: 30px 0;
+  border: 2px dashed #ffb6c1;
+  box-shadow: 0 10px 30px rgba(255, 182, 193, 0.2);
+}
+
+.love-notes h3, .memories-tree h3, .hug-counter h3 {
+  color: #ff6b8b;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#loveNote {
+  width: 100%;
+  height: 100px;
+  padding: 15px;
+  border: 2px solid #ffccd5;
+  border-radius: 15px;
+  font-size: 1rem;
+  resize: none;
+  background: #fff;
+  transition: all 0.3s;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+#loveNote:focus {
+  outline: none;
+  border-color: #ff6b8b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 139, 0.2);
+}
+
+#loveNote::placeholder {
+  color: #ffb6c1;
+  font-style: italic;
+}
+
+.note-btn, .hug-btn {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 15px auto;
+  display: block;
+  transition: all 0.3s;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(255, 154, 158, 0.3);
+}
+
+.note-btn:hover, .hug-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 154, 158, 0.4);
+}
+
+.notes-display {
+  background: white;
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 15px;
+  border-left: 5px solid #ff6b8b;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* Árvore de memórias */
+.memory-branches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.memory-leaf {
+  background: linear-gradient(135deg, #fff, #fff5f7);
+  padding: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.memory-leaf:hover {
+  transform: translateY(-5px);
+  border-color: #ffccd5;
+  box-shadow: 0 8px 20px rgba(255, 107, 139, 0.15);
+}
+
+.leaf-emoji {
+  font-size: 1.5rem;
+  animation: leaf-float 3s ease-in-out infinite;
+}
+
+@keyframes leaf-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(5deg); }
+}
+
+.leaf-text {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Contador de abraços */
+.hug-display {
+  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 10px 25px rgba(161, 196, 253, 0.4);
+  animation: pulse-gentle 2s infinite;
+}
+
+@keyframes pulse-gentle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+#hugCount {
+  font-size: 3rem;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.hug-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.hug-note {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+/* Caixinha de segredos */
+.secret-box {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 80px;
+  height: 60px;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.secret-box:hover {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.secret-box-lid {
+  width: 90px;
+  height: 20px;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  border-radius: 5px 5px 0 0;
+  position: absolute;
+  top: 0;
+  left: -5px;
+  transition: transform 0.5s;
+  transform-origin: left;
+}
+
+.secret-box:hover .secret-box-lid {
+  transform: rotate(-15deg);
+}
+
+.secret-box-body {
+  width: 80px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff6b8b 0%, #ff9a9e 100%);
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+}
+
+.secret-emoji {
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+}
+
+.secret-text {
+  font-size: 0.6rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Chuva de estrelas */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: star-fall linear infinite;
+}
+
+@keyframes star-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Bichinhos fofos */
+.cute-pets {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+
+.pet {
+  font-size: 2rem;
+  cursor: pointer;
+  animation: pet-bounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+  transition: transform 0.3s;
+}
+
+.pet:hover {
+  transform: scale(1.3);
+}
+
+.pet:nth-child(1) { animation-delay: 0s; }
+.pet:nth-child(2) { animation-delay: 0.5s; }
+.pet:nth-child(3) { animation-delay: 1s; }
+
+@keyframes pet-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Mensagens secretas */
+.secret-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  z-index: 10000;
+  max-width: 300px;
+  text-align: center;
+  display: none;
+  animation: pop-up 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes pop-up {
+  0% { transform: translate(-50%, -50%) scale(0); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.secret-message h4 {
+  color: #ff6b8b;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.secret-message p {
+  color: #555;
+  line-height: 1.5;
+}
+
+.close-secret {
+  background: #ff6b8b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s;
+}
+
+.close-secret:hover {
+  background: #ff4d73;
+  transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .special-features {
+    padding: 15px;
+    margin: 20px 0;
+  }
+  
+  .memory-branches {
+    grid-template-columns: 1fr;
+  }
+  
+  .hug-display {
+    width: 120px;
+    height: 120px;
+  }
+  
+  #hugCount {
+    font-size: 2.5rem;
+  }
+  
+  .secret-box {
+    bottom: 10px;
+    left: 10px;
+    transform: scale(0.8);
+  }
+  
+  .cute-pets {
+    bottom: 20px;
+    right: 10px;
+    transform: scale(0.8);
+  }
+}
+
+
+
 
