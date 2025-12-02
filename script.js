@@ -187,19 +187,19 @@ function updateCounter() {
   } else if (diffDays < 280) {
     message += " - 260 dias e o coração ainda acelera do nada";
   } else if (diffDays < 300) {
-    message += " - 280 dias sem saber onde isso vai dar, mas gostando do caminho";
+    message += " - 280 dias sabendo onde isso vai dar, e aproveitando muito o caminho";
   } else if (diffDays < 301) {
-    message += " - 300 dias. Isso não é crush, é patrimônio afetivo já";
+    message += " - 300 dias. Já pode ser considerado patrimônio afetivo";
   } else if (diffDays < 366) {
     const diasFaltando = 365 - diffDays;
     if (diasFaltando === 0) {
-      message += " - UM ANO! Já ta na hora de aceitar namorar comigo, não?";
+      message += " - UM ANO! E agora?";
     } else if (diasFaltando === 1) {
       message += " - só mais 1 dia pro marco épico!";
     } else if (diasFaltando === 2) {
       message += " - só mais 2 dias pra comemorar de verdade!";
     } else {
-      message += ` - faltam ${diasFaltando} dias pro marco épico!`;
+      message += ` - faltam ${diasFaltando} dias!`;
     }
   }
   
@@ -732,3 +732,4 @@ document.addEventListener('touchstart', function() {}, {passive: true});
 function handleImageError(img) {
   img.style.display = 'none';
 }
+
