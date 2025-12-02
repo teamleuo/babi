@@ -609,3 +609,473 @@ document.addEventListener('touchstart', function() {}, {passive: true});
 function handleImageError(img) {
   img.style.display = 'none';
 }
+
+// ===== NOVAS FUNCIONALIDADES FOFAS =====
+
+// Array de segredinhos fofos
+const secretMessages = [
+  "Você é a melhor coisa que me aconteceu esse ano 💖",
+  "Seu sorriso é meu lugar favorito 🌟",
+  "Obrigado por existir exatamente do jeito que você é 🥰",
+  "Cada dia com você é um novo capítulo da minha história favorita 📖",
+  "Você transforma o ordinário em extraordinário ✨",
+  "Meu coração faz cócegas quando você sorri 💓",
+  "Você é minha notícia boa em meio a tantas notícias 📰",
+  "Se eu fosse um livro, você seria minha dedicatória 📚",
+  "Você é como um café quentinho numa manhã fria ☕",
+  "O mundo fica mais colorido quando você está por perto 🎨"
+];
+
+// Funções para os novos elementos
+let hugCount = 0;
+let savedNotes = [];
+
+// Caixinha de recados
+function setupLoveNotes() {
+  const saveBtn = document.getElementById('saveNoteBtn');
+  const noteTextarea = document.getElementById('loveNote');
+  const notesDisplay = document.getElementById('notesDisplay');
+  
+  if (saveBtn) {
+    saveBtn.addEventListener('click', function() {
+      const note = noteTextarea.value.trim();
+      if (note) {
+        // Adicionar nota com data
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('pt-BR', { 
+          day: '2-digit', 
+          month: '2-digit', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        });
+        
+        savedNotes.push({
+          text: note,
+          date: dateStr
+        });
+        
+        // Atualizar display
+        updateNotesDisplay();
+        
+        // Limpar textarea
+        noteTextarea.value = '';
+        
+        // Efeito fofo
+        createNoteConfetti();
+        
+        // Mostrar mensagem de sucesso
+        showTemporaryMessage('Recadinho guardado no coração! 💕', 'success');
+      }
+    });
+  }
+}
+
+function updateNotesDisplay() {
+  const notesDisplay = document.getElementById('notesDisplay');
+  if (notesDisplay && savedNotes.length > 0) {
+    const latestNote = savedNotes[savedNotes.length - 1];
+    notesDisplay.innerHTML = `
+      <div class="latest-note">
+        <strong>📝 Último recado (${latestNote.date}):</strong>
+        <p>${latestNote.text}</p>
+        <small>Total: ${savedNotes.length} recadinhos 💌</small>
+      </div>
+    `;
+  }
+}
+
+function createNoteConfetti() {
+  const confettiEmojis = ['💕', '💖', '💗', '💓', '💞', '💝'];
+  
+  for (let i = 0; i < 20; i++) {
+    setTimeout(() => {
+      const x = Math.random() * window.innerWidth;
+      const y = window.innerHeight;
+      createConfetti(x, y, confettiEmojis);
+    }, i * 50);
+  }
+}
+
+function createConfetti(x, y, emojis) {
+  const confetti = document.createElement('div');
+  confetti.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+  confetti.style.position = 'fixed';
+  confetti.style.left = `${x}px`;
+  confetti.style.top = `${y}px`;
+  confetti.style.fontSize = '20px';
+  confetti.style.pointerEvents = 'none';
+  confetti.style.zIndex = '9999';
+  confetti.style.opacity = '0.8';
+  
+  document.body.appendChild(confetti);
+  
+  // Animação
+  const duration = Math.random() * 2 + 1;
+  const moveX = Math.random() * 200 - 100;
+  
+  confetti.animate([
+    { 
+      transform: `translate(0, 0) rotate(0deg)`, 
+      opacity: 0.8 
+    },
+    { 
+      transform: `translate(${moveX}px, -100px) rotate(360deg)`, 
+      opacity: 0 
+    }
+  ], {
+    duration: duration * 1000,
+    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+  });
+  
+  // Remover após animação
+  setTimeout(() => {
+    confetti.remove();
+  }, duration * 1000);
+}
+
+// Árvore de memórias
+function setupMemoryTree() {
+  const memoryLeaves = document.querySelectorAll('.memory-leaf');
+  
+  memoryLeaves.forEach(leaf => {
+    leaf.addEventListener('click', function() {
+      const memoryId = this.getAttribute('data-memory');
+      showMemoryDetails(memoryId);
+      
+      // Efeito visual
+      this.style.background = 'linear-gradient(135deg, #fff0f7, #fff)';
+      this.style.boxShadow = '0 0 15px rgba(255, 107, 139, 0.3)';
+      
+      setTimeout(() => {
+        this.style.background = '';
+        this.style.boxShadow = '';
+      }, 1000);
+    });
+  });
+}
+
+function showMemoryDetails(memoryId) {
+  const memoryDetails = {
+    '1': {
+      title: '🍳 Cozinha do Amor',
+      content: 'Lembro como se fosse hoje... A comida pode não ter ficado perfeita, mas as risadas foram incríveis! A melhor parte foi ver seu rostinho quando provou meu "experimento culinário".',
+      emoji: '🍳'
+    },
+    '2': {
+      title: '🎬 Cinema em Casa',
+      content: 'Pipoca caseira, cobertor compartilhado e escolha de filme demorada (como sempre). Não lembro direito do filme, mas lembro perfeitamente de você rindo das partes engraçadas.',
+      emoji: '🍿'
+    },
+    '3': {
+      title: '🌳 Piquenique Perfeito',
+      content: 'O sol estava brilhando, o vento estava fresco, e você estava linda. Aquele sanduíche que fizemos juntos tinha gosto de felicidade pura.',
+      emoji: '🧺'
+    },
+    '4': {
+      title: '🎮 Noite de Jogos',
+      content: 'Você insistindo que era boa em jogos de tabuleiro, eu tentando não rir das suas estratégias "criativas". Foi a noite que percebi que perder também é divertido quando é com você.',
+      emoji: '🎲'
+    }
+  };
+  
+  const memory = memoryDetails[memoryId];
+  if (!memory) return;
+  
+  // Criar modal de memória
+  const modal = document.createElement('div');
+  modal.className = 'secret-message';
+  modal.innerHTML = `
+    <h4>${memory.emoji} ${memory.title}</h4>
+    <p>${memory.content}</p>
+    <button class="close-secret" onclick="this.parentElement.remove()">Fechar 💝</button>
+  `;
+  
+  document.body.appendChild(modal);
+  modal.style.display = 'block';
+}
+
+// Contador de abraços
+function setupHugCounter() {
+  const hugBtn = document.getElementById('sendHugBtn');
+  const hugCountDisplay = document.getElementById('hugCount');
+  
+  if (hugBtn && hugCountDisplay) {
+    // Carregar contador salvo
+    const savedHugs = localStorage.getItem('leoBabiHugs');
+    if (savedHugs) {
+      hugCount = parseInt(savedHugs);
+      hugCountDisplay.textContent = hugCount;
+    }
+    
+    hugBtn.addEventListener('click', function() {
+      hugCount++;
+      hugCountDisplay.textContent = hugCount;
+      
+      // Salvar no localStorage
+      localStorage.setItem('leoBabiHugs', hugCount);
+      
+      // Efeito especial
+      createHugEffect();
+      
+      // Mensagem aleatória
+      const hugMessages = [
+        "Abraço enviado com carinho! 🤗",
+        "Mais um abraço para nossa coleção! 💕",
+        "Sinto o abraço daqui! ❤️",
+        "Abraço apertadinho registrado! 🤗",
+        "Que abraço gostoso! 💖"
+      ];
+      
+      const randomMsg = hugMessages[Math.floor(Math.random() * hugMessages.length)];
+      showTemporaryMessage(randomMsg, 'hug');
+      
+      // Animação do botão
+      this.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 200);
+    });
+  }
+}
+
+function createHugEffect() {
+  // Criar corações de abraço
+  for (let i = 0; i < 15; i++) {
+    setTimeout(() => {
+      const x = Math.random() * window.innerWidth;
+      const y = window.innerHeight;
+      createHugHeart(x, y);
+    }, i * 50);
+  }
+}
+
+function createHugHeart(x, y) {
+  const heart = document.createElement('div');
+  heart.innerHTML = '🤗';
+  heart.style.position = 'fixed';
+  heart.style.left = `${x}px`;
+  heart.style.top = `${y}px`;
+  heart.style.fontSize = '25px';
+  heart.style.pointerEvents = 'none';
+  heart.style.zIndex = '9999';
+  heart.style.opacity = '0.9';
+  
+  document.body.appendChild(heart);
+  
+  // Animação
+  const duration = Math.random() * 2 + 1;
+  const moveX = Math.random() * 200 - 100;
+  
+  heart.animate([
+    { 
+      transform: 'translate(0, 0) scale(1)', 
+      opacity: 0.9 
+    },
+    { 
+      transform: `translate(${moveX}px, -150px) scale(1.3)`, 
+      opacity: 0 
+    }
+  ], {
+    duration: duration * 1000,
+    easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+  });
+  
+  // Remover após animação
+  setTimeout(() => {
+    heart.remove();
+  }, duration * 1000);
+}
+
+// Caixinha de segredos
+function openSecretBox() {
+  const randomMessage = secretMessages[Math.floor(Math.random() * secretMessages.length)];
+  
+  // Criar modal com segredinho
+  const modal = document.createElement('div');
+  modal.className = 'secret-message';
+  modal.innerHTML = `
+    <h4>💝 Segredinho Fofo</h4>
+    <p>${randomMessage}</p>
+    <button class="close-secret" onclick="this.parentElement.remove()">Guardar no coração 💖</button>
+  `;
+  
+  document.body.appendChild(modal);
+  modal.style.display = 'block';
+  
+  // Efeito de confete
+  createSecretConfetti();
+}
+
+function createSecretConfetti() {
+  const confettiEmojis = ['💝', '✨', '🌟', '💫', '🎉', '🎊'];
+  
+  for (let i = 0; i < 30; i++) {
+    setTimeout(() => {
+      const x = window.innerWidth / 2;
+      const y = window.innerHeight / 2;
+      createConfetti(x, y, confettiEmojis);
+    }, i * 30);
+  }
+}
+
+// Chuva de estrelas
+function createStars() {
+  const container = document.getElementById('starsContainer');
+  if (!container) return;
+  
+  // Limpar estrelas existentes
+  container.innerHTML = '';
+  
+  // Criar estrelas
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    
+    // Tamanho aleatório
+    const size = Math.random() * 3 + 1;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    
+    // Posição aleatória
+    star.style.left = `${Math.random() * 100}vw`;
+    
+    // Opacidade aleatória
+    const opacity = Math.random() * 0.7 + 0.3;
+    star.style.opacity = opacity;
+    
+    // Duração aleatória
+    const duration = Math.random() * 10 + 10;
+    star.style.animationDuration = `${duration}s`;
+    
+    // Delay aleatório
+    const delay = Math.random() * 15;
+    star.style.animationDelay = `${delay}s`;
+    
+    container.appendChild(star);
+  }
+}
+
+// Bichinhos fofos andando
+function animatePets() {
+  const pets = document.querySelectorAll('.pet');
+  const container = document.querySelector('.cute-pets');
+  
+  if (!pets.length || !container) return;
+  
+  let positions = [0, 0, 0];
+  const direction = [1, -1, 1];
+  
+  function movePets() {
+    pets.forEach((pet, index) => {
+      positions[index] += direction[index] * 0.5;
+      
+      // Limitar movimento
+      if (Math.abs(positions[index]) > 50) {
+        direction[index] *= -1;
+      }
+      
+      pet.style.transform = `translateX(${positions[index]}px)`;
+    });
+    
+    requestAnimationFrame(movePets);
+  }
+  
+  movePets();
+  
+  // Interação com clique
+  pets.forEach(pet => {
+    pet.addEventListener('click', function() {
+      const petEmoji = this.textContent;
+      const petSounds = {
+        '🐱': 'Miau! 😻',
+        '🐶': 'Au au! 🐾',
+        '🐰': 'Sniff sniff! 🥕'
+      };
+      
+      const sound = petSounds[petEmoji] || 'Olá! 👋';
+      showTemporaryMessage(sound, 'pet');
+      
+      // Efeito de pulo
+      this.style.transform = 'translateY(-20px)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 300);
+    });
+  });
+}
+
+// Mensagem temporária
+function showTemporaryMessage(message, type = 'info') {
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `temp-message temp-${type}`;
+  msgDiv.textContent = message;
+  
+  // Estilos
+  msgDiv.style.position = 'fixed';
+  msgDiv.style.top = '20px';
+  msgDiv.style.left = '50%';
+  msgDiv.style.transform = 'translateX(-50%)';
+  msgDiv.style.backgroundColor = type === 'success' ? '#ff6b8b' : 
+                                type === 'hug' ? '#4ecdc4' : 
+                                type === 'pet' ? '#ff9a9e' : '#333';
+  msgDiv.style.color = 'white';
+  msgDiv.style.padding = '12px 25px';
+  msgDiv.style.borderRadius = '25px';
+  msgDiv.style.boxShadow = '0 5px 20px rgba(0,0,0,0.2)';
+  msgDiv.style.zIndex = '10000';
+  msgDiv.style.fontWeight = '600';
+  msgDiv.style.opacity = '0';
+  msgDiv.style.transition = 'opacity 0.3s';
+  
+  document.body.appendChild(msgDiv);
+  
+  // Animar entrada
+  setTimeout(() => {
+    msgDiv.style.opacity = '1';
+  }, 10);
+  
+  // Remover após alguns segundos
+  setTimeout(() => {
+    msgDiv.style.opacity = '0';
+    setTimeout(() => {
+      msgDiv.remove();
+    }, 300);
+  }, 3000);
+}
+
+// ===== ATUALIZAR A FUNÇÃO DE INICIALIZAÇÃO =====
+// No DOMContentLoaded, adicione estas novas funções:
+
+document.addEventListener('DOMContentLoaded', function() {
+  // ... código existente ...
+  
+  // ADICIONAR ESTAS NOVAS INICIALIZAÇÕES:
+  
+  // Configurar novas funcionalidades
+  setupLoveNotes();
+  setupMemoryTree();
+  setupHugCounter();
+  createStars();
+  animatePets();
+  
+  // Atualizar a chuva de estrelas periodicamente
+  setInterval(createStars, 30000);
+  
+  // Adicionar evento de teclado para atalho fofo
+  document.addEventListener('keydown', function(e) {
+    if (e.altKey && e.key === 'h') { // Alt + H
+      document.getElementById('sendHugBtn')?.click();
+    }
+    if (e.altKey && e.key === 's') { // Alt + S
+      openSecretBox();
+    }
+  });
+  
+  // Mostrar dica de atalho uma vez
+  if (!localStorage.getItem('shortcutShown')) {
+    setTimeout(() => {
+      showTemporaryMessage('💡 Dica: Use Alt+H para enviar um abraço e Alt+S para abrir a caixinha de segredos!', 'info');
+      localStorage.setItem('shortcutShown', 'true');
+    }, 10000);
+  }
+});
