@@ -1,105 +1,6 @@
 // ===== VARIÁVEIS GLOBAIS =====
 let player;
 let isMusicPlaying = false;
-let noButtonClickCount = 0;
-
-// ===== FUNÇÕES DA TELA INICIAL =====
-
-// Função para mover o botão "Não" aleatoriamente
-function moveNoButton() {
-    const noBtn = document.getElementById('noInitialBtn');
-    const container = document.querySelector('.initial-screen');
-    const containerRect = container.getBoundingClientRect();
-    const buttonRect = noBtn.getBoundingClientRect();
-    
-    // Limites para o movimento do botão
-    const maxX = containerRect.width - buttonRect.width - 40;
-    const maxY = containerRect.height - buttonRect.height - 40;
-    
-    // Posição aleatória dentro do container
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
-    
-    // Aplicar a nova posição
-    noBtn.style.position = 'absolute';
-    noBtn.style.left = `${randomX}px`;
-    noBtn.style.top = `${randomY}px`;
-    
-    // Efeito de animação
-    noBtn.classList.add('button-escaping');
-    setTimeout(() => {
-        noBtn.classList.remove('button-escaping');
-    }, 500);
-}
-
-// Função para mostrar o card de resultados
-function showResultCard() {
-    const resultCard = document.getElementById('resultCard');
-    resultCard.style.display = 'block';
-    
-    // Criar corações especiais
-    createInitialHearts();
-}
-
-// Função para criar corações na tela inicial
-function createInitialHearts() {
-    const heartsContainer = document.getElementById('floatingHearts');
-    const heartEmojis = ['❤️', '💕', '💖', '💗', '💓', '💞'];
-    
-    for (let i = 0; i < 20; i++) {
-        setTimeout(() => {
-            const heart = document.createElement('div');
-            heart.className = 'floating-heart';
-            heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-            
-            // Posição aleatória
-            heart.style.left = `${Math.random() * 100}vw`;
-            heart.style.top = `${100 + Math.random() * 20}vh`;
-            
-            // Configurações aleatórias
-            const size = Math.random() * 25 + 20;
-            const duration = Math.random() * 15 + 10;
-            const delay = Math.random() * 2;
-            
-            heart.style.fontSize = `${size}px`;
-            heart.style.animationDuration = `${duration}s`;
-            heart.style.animationDelay = `${delay}s`;
-            heart.style.color = '#ff6b6b';
-            
-            heartsContainer.appendChild(heart);
-            
-            // Remover após animação
-            setTimeout(() => {
-                if (heart.parentNode) {
-                    heart.remove();
-                }
-            }, duration * 1000);
-        }, i * 200);
-    }
-}
-
-// Função para continuar para a página principal
-function continueToMainPage() {
-    const welcomeOverlay = document.getElementById('welcomeOverlay');
-    const mainContainer = document.getElementById('mainContainer');
-    
-    // Transição suave
-    welcomeOverlay.style.opacity = '0';
-    welcomeOverlay.style.transition = 'opacity 0.8s ease';
-    
-    setTimeout(() => {
-        welcomeOverlay.style.display = 'none';
-        mainContainer.style.display = 'block';
-        
-        // Inicializar componentes da página principal
-        updateCounter();
-        initCarousel();
-        setInterval(updateCounter, 1000);
-        createFloatingHearts();
-        setInterval(createFloatingHearts, 20000);
-        checkMonthAnniversary();
-    }, 800);
-}
 
 // ===== MENSAGENS =====
 const messages = [
@@ -642,39 +543,15 @@ function createMatrixHeart(x, y) {
 
 // ===== INICIALIZAÇÃO =====
 document.addEventListener('DOMContentLoaded', function() {
-  // Configurar eventos da tela inicial
-  const yesBtn = document.getElementById('yesInitialBtn');
-  const noBtn = document.getElementById('noInitialBtn');
-  const continueBtn = document.getElementById('continueBtn');
+  // Inicializar a página principal direto
+  updateCounter();
+  initCarousel();
+  setInterval(updateCounter, 1000);
+  createFloatingHearts();
+  setInterval(createFloatingHearts, 20000);
+  checkMonthAnniversary();
   
-  if (yesBtn) {
-    yesBtn.addEventListener('click', showResultCard);
-  }
-  
-  if (noBtn) {
-    noBtn.addEventListener('mouseover', moveNoButton);
-    noBtn.addEventListener('touchstart', function(e) {
-      e.preventDefault();
-      moveNoButton();
-    });
-    noBtn.addEventListener('click', function() {
-      noButtonClickCount++;
-      if (noButtonClickCount >= 3) {
-        this.textContent = 'Você não tem escolha! 😈';
-        this.style.background = '#ff4757';
-      }
-      moveNoButton();
-    });
-  }
-  
-  if (continueBtn) {
-    continueBtn.addEventListener('click', continueToMainPage);
-  }
-  
-  // Mover o botão "Não" para uma posição inicial aleatória
-  setTimeout(moveNoButton, 1000);
-  
-  // Configurar eventos da página principal (quando carregada)
+  // Configurar eventos da página principal
   document.getElementById('musicToggle')?.addEventListener('click', function() {
     if (!isMusicPlaying) {
       playYouTubeMusic();
@@ -732,5 +609,3 @@ document.addEventListener('touchstart', function() {}, {passive: true});
 function handleImageError(img) {
   img.style.display = 'none';
 }
-
-
