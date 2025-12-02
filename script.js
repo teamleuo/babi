@@ -758,7 +758,7 @@ function showMemoryDetails(memoryId) {
   const memoryDetails = {
     '1': {
       title: '🍳 Cozinha do Amor',
-      content: 'Lembro como se fosse hoje... A comida pode não ter ficado perfeita, mas as risadas foram incríveis! A melhor parte foi ver seu rostinho quando provou meu "experimento culinário".',
+      content: 'Lembro como se fosse hoje... A comida pode não ter ficado perfeita, mas as risadas foram incríveis!',
       emoji: '🍳'
     },
     '2': {
@@ -767,15 +767,10 @@ function showMemoryDetails(memoryId) {
       emoji: '🍿'
     },
     '3': {
-      title: '🌳 Piquenique Perfeito',
+      title: '🌳 Piquenique Perfeito (ainda não aconteceu)',
       content: 'O sol estava brilhando, o vento estava fresco, e você estava linda. Aquele sanduíche que fizemos juntos tinha gosto de felicidade pura.',
       emoji: '🧺'
     },
-    '4': {
-      title: '🎮 Noite de Jogos',
-      content: 'Você insistindo que era boa em jogos de tabuleiro, eu tentando não rir das suas estratégias "criativas". Foi a noite que percebi que perder também é divertido quando é com você.',
-      emoji: '🎲'
-    }
   };
   
   const memory = memoryDetails[memoryId];
@@ -1079,3 +1074,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 10000);
   }
 });
+
